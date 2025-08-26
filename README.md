@@ -60,48 +60,31 @@ Remove-Module sys-field-filter
 ```powershell
 
  # Sort-Object (order result)
- sys-process | Sort-Object UtcTime -Descending
- sys-file | Sort-Object Image -Unique |fl
- 
+ sys-processCreation | Sort-Object UtcTime -Descending
+ sys-fileCreated | Sort-Object Image -Unique |fl
+ sec-FileAccess | Select-Object -Unique ObjectName, AccessRights
  
  # Select-String pattern
- sys-process | Select-String -Pattern "-e powershell" -InputObject {$_.CommandLine}
- sys-file | Select-String -Pattern "Temp" -InputObject {$_.TargetFilename}
+ sys-processCreation | Select-String -Pattern "-e powershell" -InputObject {$_.CommandLine}
+ sys-fileCreated | Select-String -Pattern "Temp" -InputObject {$_.TargetFilename}
+ 
  
  # Export to csv
- sys-process |Export-Csv -Path .\Desktop\processes.csv -NoTypeInformation
+ sys-processCreation |Export-Csv -Path .\Desktop\processes.csv -NoTypeInformation
  
  # ForEach-Object (Custom processing)
- sys-process |ForEach-Object { "$($_.Image) -> $($_.CommandLine)"}
+ sys-processCreation |ForEach-Object { "$($_.Image) -> $($_.CommandLine)"}
  
  # Comparison 
- sys-process |Where-Object {$_.CommandLine.Length -gt 100}
+ sys-processCreation |Where-Object {$_.CommandLine.Length -gt 100}
  sys-network | Where-Object {$_.DestinationPort -in @(80, 443, 8080)}
  
  # Result Limiting
-  sys-process |Select-Object -First 2
+  sys-processCreation |Select-Object -First 2
   sys-network | Select-Object -Skip 20 -First 10
 
 ```
 
-```powershell
-
-sec-NewProcess           # 4688: A new process has been created
-sec-GroupMembershipEnum  # 4798: A user's local group membership was enumerated.
-sec-FileAccess           # 4663: An attempt was made to access an object
-sec-UserCreated          # 4720: User Account Created
-sec-UserEnabled          # 4722: A user account was enabled 
-sec-ResetPasswd          # 4724: An attempt was made to reset an account's password
-sec-UserAccountChanged   # 4738: A user account was changed.
-ConvertAccessMask        # Helper Function to convert access mask value to human readable format
-```
-
-```powershell
-sys-processCreation     # Event ID 1 - Process creation
-sys-fileCreated         # Event ID 11 - File creation
-sys-registryValueSet    # Event ID 13 - Registry events
-sys-network             # Event ID 3 - Network connections
-```
 
 ## Sample Output
 
