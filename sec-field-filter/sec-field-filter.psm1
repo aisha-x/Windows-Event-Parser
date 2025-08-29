@@ -104,7 +104,7 @@ function ConvertAccessMask {
         }
     }
     
-    # Fixed return statement - use proper conditional logic
+   
     if ($result.Count -eq 0) {
         return "UNKNOWN_ACCESS"
     } else {
