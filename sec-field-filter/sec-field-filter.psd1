@@ -11,7 +11,7 @@
     RootModule = 'sec-field-filter.psm1'
     PrivateData = @{
         PSData = @{
-            Tags = @('ExcludeLogging', 'Security', 'LogAnalysis', 'Windows')
+            Tags = @('Security', 'LogAnalysis', 'Windows')
             LicenseUri = ''
             ProjectUri = 'https://github.com/aisha-x/Windows-Event-Parser'
             ReleaseNotes = 'Initial release'
